@@ -1,0 +1,20 @@
+<div class="col-md-6">
+<form>
+	<legend>Register User</legend>
+	<div class="form-group">
+		<label for="">FirstName:</label>
+		<input type="text" class="form-control" ng-model="fname" placeholder="Enter your firstname">
+	</div>
+	<div class="form-group">
+		<label for="">LastName:</label>
+		<input type="text" class="form-control" ng-model="lname" placeholder="Enter your lastname">
+	</div>
+	<div class="form-group">
+		<label for="">Email Id:</label>
+		<input type="text" class="form-control" ng-model="email" placeholder="Enter your emailid">
+	</div>
+
+	<a class="btn btn-success" ng-href="/adduser/{{fname}}/{{lname}}/{{email}}" >Submit</a>
+</form>
+<div ng-show='success' class="well">Form submitted successfully!</div>
+</div>
