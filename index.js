@@ -36,14 +36,15 @@ app.get('/addUser/:fname/:lname/:email',function(req,res){
     var f=req.params.fname;
     var l=req.params.lname;
     var e=req.params.email;
-    counter++; 
+    counter++;
     query="insert into users(id,firstname,lastname,email) values('"+counter+"','"+f+"','"+l+"','"+e+"')";
     console.info(query);
     client.execute(query,insertCB);
     function insertCB(err,result){
       console.info("result:"+result);
       console.info("err"+err);
-      res.end("done");
+      var resu={msg:"done"};
+      res.end(JSON.stringify(resu));
     }
 });
 

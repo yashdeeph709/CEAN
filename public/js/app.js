@@ -6,10 +6,12 @@ app.config(['$routeProvider',
             templateUrl: 'partials/show.html',
             controller: 'showctrl'
         });
+        
         $routeProvider.when('/form', {
             templateUrl: 'partials/form.html',
             controller: 'formctrl'
         });
+
     }
 ]);
 
@@ -17,10 +19,10 @@ var userserve=angular.module("users",[]);
 userserve.factory('users', function ($resource){
     return $resource('/showusers');
 });
-   
+
+
 app.controller('formctrl', ['$scope',
     function($scope) {
-    	$scope.sucess=true;
     }
 ]);
 
