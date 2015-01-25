@@ -1,5 +1,5 @@
 <div class="col-md-6">
-<form>
+<form method="post" action="adduser">
 	<legend>Register User</legend>
 	<div class="form-group">
 		<label for="">FirstName:</label>
@@ -13,8 +13,7 @@
 		<label for="">Email Id:</label>
 		<input type="text" class="form-control" ng-model="email" placeholder="Enter your emailid">
 	</div>
-
-	<a class="btn btn-success" ng-href="/adduser/{{fname}}/{{lname}}/{{email}}" >Submit</a>
+	<input type="submit" class="btn btn-success" value="submit">
 </form>
 <div ng-show='success' class="well">Form submitted successfully!</div>
 </div>
