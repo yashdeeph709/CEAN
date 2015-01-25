@@ -1,15 +1,20 @@
 var express = require('express');
 var  http = require('http');
+var bodyParse=require('body-parser');
 var cassandra=require('cassandra-driver');
 var client =new cassandra.Client({'contactPoints':['127.0.0.1'],keyspace:'alltotal'}); 
+
 /* setting static html to be used*/
 var app = express()
   .use(express.static('public'));
+  app.use(bodyParse.urlencoded());
+
 //useful functions
     var counter=0;
 
+
 /* Route Definations */
-app.get('/showusers/',function(req,res){
+app.post('/showusers/',function(req,res){
   client.execute("SELECT firstname,lastname,email FROM users", function (err, result) {
            var users=[];
            var index=0;
@@ -32,10 +37,10 @@ app.get('/showusers/',function(req,res){
          });
 });
 
-app.get('/addUser/:fname/:lname/:email',function(req,res){
-    var f=req.params.fname;
-    var l=req.params.lname;
-    var e=req.params.email;
+app.post('/addUser',function(req,res){
+    var f=req.body.fname;
+    var l=req.body.lname;
+    var e=req.body.email;
     counter++;
     query="insert into users(id,firstname,lastname,email) values('"+counter+"','"+f+"','"+l+"','"+e+"')";
     console.info(query);
