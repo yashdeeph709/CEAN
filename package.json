@@ -1,6 +1,6 @@
 {
   "name": "alltotal",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is a crud by node,angular,cassendra",
   "main": "index.js",
   "scripts": {
