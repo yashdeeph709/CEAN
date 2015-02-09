@@ -10,56 +10,46 @@ var app = express()
   app.use(bodyParse.urlencoded());
 
 //useful functions
-    var counter=0;
-
+var counter=0;
 
 /* Route Definations */
-app.post('/showusers/',function(req,res){
+app.get('/showusers',function(req,res){
   client.execute("SELECT firstname,lastname,email FROM users", function (err, result) {
-           var users=[];
-           var index=0;
            if (!err){
-               if ( result.rows.length > 0 ) {
-                   while(index<result.rows.length){
-                   var user = result.rows[index];
-                   users.push({id:index,fname: user.firstname,lname:user.lastname, email: user.email});
-                   index++;
-                   }
-                   res.contentType('application/json');
-                   res.send(JSON.stringify(users));
-                   counter=index;
-                   res.end();
+                   counter=result.rows.length+1;
+                   result.rows.sort();
+                   res.json(result.rows);
                 } else {
                    console.log("No results");
                    res.end();
                }
-           }
+           
          });
 });
 
-app.post('/addUser',function(req,res){
-    var f=req.body.fname;
-    var l=req.body.lname;
-    var e=req.body.email;
-    counter++;
-    query="insert into users(id,firstname,lastname,email) values('"+counter+"','"+f+"','"+l+"','"+e+"')";
-    console.info(query);
-    client.execute(query,insertCB);
-    function insertCB(err,result){
-      console.info("result:"+result);
-      console.info("err"+err);
-      var resu={msg:"done"};
-      res.end(JSON.stringify(resu));
-    }
+app.get('/addUser',function(req,res){
+    var firstname=req.param('firstname');
+    var lastname=req.param('lastname');
+    var email=req.param('email');
+    client.execute("insert into users(id,firstname,lastname,email) values("+counter+",'"+firstname+"','"+lastname+"','"+email+"')",
+      function(err,result){
+      if(err){
+        var error=[];
+        error.push(err);
+        res.json(err);
+      }else{
+        var resultt=[];
+        resultt.push(result);
+        res.json(resultt);
+      }
+    });
 });
 
 app.get('/*', function  (req, res) {
   res.status(404, {status: 'not found'});
   res.end();
 });
-/* Route Defination Over */
 
-/* creating and starting server */
-http.createServer(app).listen(3000, function () {
+app.listen(3000, function(){
   console.log("Server ready at http://localhost:3000");
 });

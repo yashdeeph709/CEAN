@@ -1,19 +1,19 @@
 <div class="col-md-6">
-<form method="post" action="adduser">
+<form>
 	<legend>Register User</legend>
 	<div class="form-group">
 		<label for="">FirstName:</label>
-		<input type="text" class="form-control" ng-model="fname" placeholder="Enter your firstname">
+		<input type="text" class="form-control" ng-model="firstname" placeholder="Enter your firstname">
 	</div>
 	<div class="form-group">
 		<label for="">LastName:</label>
-		<input type="text" class="form-control" ng-model="lname" placeholder="Enter your lastname">
+		<input type="text" class="form-control" ng-model="lastname" placeholder="Enter your lastname">
 	</div>
 	<div class="form-group">
 		<label for="">Email Id:</label>
 		<input type="text" class="form-control" ng-model="email" placeholder="Enter your emailid">
 	</div>
-	<input type="submit" class="btn btn-success" value="submit">
+	<input type="submit" ng-click="addUser()" class="btn btn-success" value="submit">
 </form>
-<div ng-show='success' class="well">Form submitted successfully!</div>
+<div ng-show='success'  class="well">{{success}}}</div>
 </div>
