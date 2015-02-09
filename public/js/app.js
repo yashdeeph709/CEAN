@@ -21,6 +21,9 @@ app.controller('controller', ['$scope','addUser','users',
             addUser.query({"firstname":firstname,"lastname":lastname,"email":email},function(data){
                 $scope.success=data;
             });
+            $scope.firstname="";
+            $scope.lastname="";
+            $scope.email="";
             $scope.refresh();
         }
     }

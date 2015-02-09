@@ -1,0 +1,3 @@
+#run this lines on your cassandra cqlsh shell it will create apt schema
+create keyspace alltotal with replication={'class':'SimpleStrategy','replication_factor':1}
+create table users(id int primary key,firstname text,lastname text,email text);
