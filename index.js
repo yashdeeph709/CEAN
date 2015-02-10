@@ -14,10 +14,9 @@ var counter=0;
 
 /* Route Definations */
 app.get('/showusers',function(req,res){
-  client.execute("SELECT firstname,lastname,email FROM users", function (err, result) {
+  client.execute("SELECT id,firstname,lastname,email FROM users", function (err, result) {
            if (!err){
                    counter=result.rows.length+1;
-                   result.rows.sort();
                    res.json(result.rows);
                 } else {
                    console.log("No results");
@@ -34,12 +33,38 @@ app.get('/addUser',function(req,res){
     client.execute("insert into users(id,firstname,lastname,email) values("+counter+",'"+firstname+"','"+lastname+"','"+email+"')",
       function(err,result){
       if(err){
-        var error=[];
-        error.push(err);
+        var error=[{'error':true}];
+        res.json(error);
+      }else{
+        var resultt=[{'error':false}];
+        res.json(resultt);
+      }
+    });
+});
+app.get('/deleteUser',function(req,res){
+    var id=req.param('id');
+    client.execute("delete from users where id="+id,function(err,result){
+      if(err){
+        var error=[{'error':true}];
+        res.json(error);
+      }else{
+        var resultt=[{'error':false}];
+        res.json(resultt);
+      }
+    })
+});
+app.get('/editUser',function(req,res){
+    var id=req.param('id');
+    var firstname=req.param('firstname');
+    var lastname=req.param('lastname');
+    var email=req.param('email');
+    client.execute("update users set firstname='"+firstname+"',lastname='"+lastname+"',email='"+email+"' where id="+id+"",
+      function(err,result){
+      if(err){
+        var error=[{'error':true}];
         res.json(err);
       }else{
-        var resultt=[];
-        resultt.push(result);
+        var resultt=[{'error':false}];
         res.json(resultt);
       }
     });

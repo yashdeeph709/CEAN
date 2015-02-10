@@ -4,7 +4,6 @@
 <title>Alltotal</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <script src="js/lib/angular.js"></script>
-<script src="js/lib/angular-route.js"></script>
 <script src="js/lib/angular-resource.js"></script>
 <script src="js/app.js"></script>
 </head>
@@ -23,11 +22,13 @@
 		<th>Lastname</th>
 		<th>Email</th>
 	</thead>
-	<tr ng-repeat="user in users|filter:search">
+	<tr ng-repeat="user in users|filter:search|orderBy:user.id:-1">
 		<td>{{user.id}}</td>
 		<td>{{user.firstname}}</td>
 		<td>{{user.lastname}}</td>
 		<td>{{user.email}}</td>
+		<td><input type="button" value="Edit" ng-click="edit(user)"></td>
+		<td><input type="button" value="Delete" ng-click="delete(user.id)"></td>
 	</tr>
 	</table>
 </div>
@@ -46,9 +47,11 @@
 		<label for="">Email Id:</label>
 		<input type="text" class="form-control" ng-model="email" placeholder="Enter your emailid">
 	</div>
-	<input type="submit" ng-click="addUser()" class="btn btn-success" value="submit">
+	<input type="submit" ng-click="addUser()" class="btn btn-success" ng-class="statesubmit" value="submit">
+	<input type="submit" ng-click="update()" class="btn btn-success" ng-class="stateupdate" value="Update">
+
 </form>
-<div ng-show='success'  class="well">Form submitted success</div>
+<div ng-show='message'  class="well">{{message}}</div>
 </div>
 
 </ul>
