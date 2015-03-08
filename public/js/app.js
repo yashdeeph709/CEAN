@@ -1,4 +1,4 @@
-var app = angular.module("Userapp", ['ngResource']);
+var app = angular.module("Userapp",['ngResource']) ;
 
 app.factory('users', function ($resource){
     return $resource('/showusers');
@@ -13,10 +13,11 @@ app.factory('deleteUser',function($resource){
     return $resource('/deleteUser');
 });
 
-app.controller('controller', ['$scope','addUser','users','editUser','deleteUser',
-    function($scope,addUser,users,editUser,deleteUser) {
+app.controller('controller', ['$scope','addUser','users','editUser','deleteUser','$timeout',
+    function($scope,addUser,users,editUser,deleteUser,$timeout) {
         $scope.refresh=function(){
         $scope.users =users.query();
+        $scope.stateupdate='disabled';
         }
         $scope.edit=function(user){
             $scope.firstname=user.firstname;
@@ -24,6 +25,7 @@ app.controller('controller', ['$scope','addUser','users','editUser','deleteUser'
             $scope.email=user.email;
             $scope.id=user.id;
             $scope.statesubmit='disabled';
+            $scope.stateupdate='enabled';
             $scope.message=null;
         }
         $scope.update=function(){
@@ -36,6 +38,9 @@ app.controller('controller', ['$scope','addUser','users','editUser','deleteUser'
                 $scope.message="data updated successfully";
                 }
             });
+             $timeout(function(){
+                $scope.message=null;
+            },5000);
             $scope.firstname="";
             $scope.lastname="";
             $scope.email="";
@@ -51,6 +56,9 @@ app.controller('controller', ['$scope','addUser','users','editUser','deleteUser'
                 $scope.message="form submitted successfully"
                 }
                 $scope.refresh();
+                $timeout(function(){
+                $scope.message=null;
+                },5000);
             });
         }
         $scope.addUser=function(){
@@ -70,7 +78,11 @@ app.controller('controller', ['$scope','addUser','users','editUser','deleteUser'
             $scope.lastname="";
             $scope.email="";
             $scope.refresh();
+            $timeout(function(){
+                $scope.message=null;
+            },5000);
         }
+
     }
 ]);
 

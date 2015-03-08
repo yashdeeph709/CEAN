@@ -1,13 +1,12 @@
 var express = require('express');
 var  http = require('http');
 var bodyParse=require('body-parser');
-var cassandra=require('cassandra-driver');
+var cassandra=require("cassandra-driver");
 var client =new cassandra.Client({'contactPoints':['127.0.0.1'],keyspace:'alltotal'}); 
 
 /* setting static html to be used*/
-var app = express()
-  .use(express.static('public'));
-  app.use(bodyParse.urlencoded());
+var app = express().use(express.static('public'));
+    app.use(bodyParse.urlencoded());
 
 //useful functions
 var counter=0;
