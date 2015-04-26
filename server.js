@@ -6,7 +6,6 @@ var client =new cassandra.Client({'contactPoints':['127.0.0.1'],keyspace:'alltot
 
 /* setting static html to be used*/
 var app = express().use(express.static('public'));
-    app.use(bodyParse.urlencoded());
 
 //useful functions
 var counter=0;
@@ -15,7 +14,7 @@ var counter=0;
 app.get('/showusers',function(req,res){
   client.execute("SELECT id,firstname,lastname,email FROM users", function (err, result) {
            if (!err){
-                   counter=result.rows.length+1;
+                   counter=result.rows.length+1;11
                    res.json(result.rows);
                 } else {
                    console.log("No results");
